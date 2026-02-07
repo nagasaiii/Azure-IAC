@@ -28,6 +28,8 @@
 - [Future Enhancements](#future-enhancements)
 - [Contributing](#contributing)
 - [License](#license)
+- [Author](#author)
+- [Acknowledgments](#acknowledgments)
 
 ---
 
@@ -47,6 +49,7 @@ This project demonstrates a complete Infrastructure as Code workflow for Azure, 
 
 ## 🏗️ Architecture
 
+```
 ┌─────────────────────────────────────────────────────────────┐
 │                    GitHub Repository                        │
 │   ┌────────────────────────────────────────────────────┐    │
@@ -78,6 +81,7 @@ This project demonstrates a complete Infrastructure as Code workflow for Azure, 
           │    │ (Basic Tier - Queue)       │   │
           │    └────────────────────────────┘   │
           └─────────────────────────────────────┘
+```
 
 ---
 
@@ -127,6 +131,7 @@ This project demonstrates a complete Infrastructure as Code workflow for Azure, 
 
 ## 📁 Project Structure
 
+```
 Azure_IAC/
 ├── .github/
 │ └── workflows/
@@ -146,6 +151,7 @@ Azure_IAC/
 ├── .gitignore # Git ignore rules (Terraform files)
 ├── LICENSE # MIT License
 └── README.md # This file
+```
 
 ---
 
@@ -219,6 +225,7 @@ Go to repository Settings → Secrets and variables → Actions and add:
 
 Edit terraform/backend.tf with your storage account name:
 
+```bash
 terraform {
   backend "azurerm" {
     resource_group_name  = "terraform-state-rg"
@@ -227,14 +234,15 @@ terraform {
     key                  = "azure-demo.tfstate"
   }
 }
+```
 
 ### 6. Deploy Infrastructure
 
-Go to Actions tab in GitHub
+Go to `Actions` tab in GitHub
 
-Select Terraform Deploy workflow
+Select `Terraform Deploy` workflow
 
-Click Run workflow → Run workflow
+Click `Run workflow` → Run workflow
 
 Monitor the execution logs
 
@@ -242,11 +250,11 @@ Verify resources in Azure Portal
 
 ### 7. Destroy Infrastructure
 
-Go to Actions tab
+Go to `Actions` tab
 
-Select Terraform Destroy workflow
+Select `Terraform Destroy` workflow
 
-Click Run workflow → Run workflow
+Click `Run workflow` → Run workflow
 
 Confirm resources are deleted in Azure Portal
 

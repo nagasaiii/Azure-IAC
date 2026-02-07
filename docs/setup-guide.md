@@ -6,14 +6,17 @@ This comprehensive guide walks through every step needed to set up and deploy th
 
 ## Table of Contents
 
-1. [Azure Prerequisites](#azure-prerequisites)
-2. [Service Principal Creation](#service-principal-creation)
-3. [Storage Account Setup](#storage-account-setup)
-4. [GitHub Configuration](#github-configuration)
-5. [Terraform Configuration](#terraform-configuration)
-6. [Local Testing](#local-testing)
-7. [Deployment Workflow](#deployment-workflow)
-8. [Troubleshooting](#troubleshooting)
+- [Azure Prerequisites](#azure-prerequisites)
+- [Service Principal Creation](#service-principal-creation)
+- [Storage Account Setup](#storage-account-setup)
+- [GitHub Configuration](#github-configuration)
+- [Terraform Configuration](#terraform-configuration)
+- [Local Testing](#local-testing)
+- [Deployment Workflow](#deployment-workflow)
+- [Troubleshooting](#troubleshooting)
+- [Best Practices Summary](#best-practices-summary)
+- [Next Steps](#next-steps)
+- [Additional Resources](#additional-resources)
 
 ---
 
