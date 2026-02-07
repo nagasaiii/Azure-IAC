@@ -1,6 +1,6 @@
 # Azure-IAC
 
-## Azure Infrastructure Provisioning with Terraform & GitHub Actions
+## Introduction
 
 [![Terraform](https://img.shields.io/badge/Terraform-v1.7+-623CE4?style=flat&logo=terraform&logoColor=white)](https://www.terraform.io/)
 [![Azure](https://img.shields.io/badge/Azure-Cloud-0078D4?style=flat&logo=microsoftazure&logoColor=white)](https://azure.microsoft.com/)
@@ -8,26 +8,6 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 > A production-grade Infrastructure as Code (IaC) project demonstrating automated Azure resource provisioning using Terraform with GitHub Actions CI/CD pipeline. Built with cost optimization and DevOps best practices in mind.
-
----
-
-## 📋 Table of Contents
-
-- [Overview](#overview)
-- [Architecture](#architecture)
-- [Technologies](#technologies)
-- [Features](#features)
-- [Prerequisites](#prerequisites)
-- [Project Structure](#project-structure)
-- [Quick Start](#quick-start)
-- [Cost Analysis](#cost-analysis)
-- [Workflows](#workflows)
-- [Security](#security)
-- [Screenshots](#screenshots)
-- [Lessons Learned](#lessons-learned)
-- [Future Enhancements](#future-enhancements)
-- [Contributing](#contributing)
-- [License](#license)
 
 ---
 
@@ -47,6 +27,7 @@ This project demonstrates a complete Infrastructure as Code workflow for Azure, 
 
 ## 🏗️ Architecture
 
+```
 ┌─────────────────────────────────────────────────────────────┐
 │                    GitHub Repository                        │
 │   ┌────────────────────────────────────────────────────┐    │
@@ -78,6 +59,7 @@ This project demonstrates a complete Infrastructure as Code workflow for Azure, 
           │    │ (Basic Tier - Queue)       │   │
           │    └────────────────────────────┘   │
           └─────────────────────────────────────┘
+```
 
 ---
 
@@ -127,6 +109,7 @@ This project demonstrates a complete Infrastructure as Code workflow for Azure, 
 
 ## 📁 Project Structure
 
+```
 Azure_IAC/
 ├── .github/
 │ └── workflows/
@@ -146,6 +129,7 @@ Azure_IAC/
 ├── .gitignore # Git ignore rules (Terraform files)
 ├── LICENSE # MIT License
 └── README.md # This file
+```
 
 ---
 
@@ -219,6 +203,7 @@ Go to repository Settings → Secrets and variables → Actions and add:
 
 Edit terraform/backend.tf with your storage account name:
 
+```bash
 terraform {
   backend "azurerm" {
     resource_group_name  = "terraform-state-rg"
@@ -227,14 +212,15 @@ terraform {
     key                  = "azure-demo.tfstate"
   }
 }
+```
 
 ### 6. Deploy Infrastructure
 
-Go to Actions tab in GitHub
+Go to `Actions` tab in GitHub
 
-Select Terraform Deploy workflow
+Select `Terraform Deploy` workflow
 
-Click Run workflow → Run workflow
+Click `Run workflow` → Run workflow
 
 Monitor the execution logs
 
@@ -242,11 +228,11 @@ Verify resources in Azure Portal
 
 ### 7. Destroy Infrastructure
 
-Go to Actions tab
+Go to `Actions` tab
 
-Select Terraform Destroy workflow
+Select `Terraform Destroy` workflow
 
-Click Run workflow → Run workflow
+Click `Run workflow` → Run workflow
 
 Confirm resources are deleted in Azure Portal
 
