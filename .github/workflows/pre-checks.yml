@@ -27,7 +27,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: ./terraform  
+        working-directory: ./terraform
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -86,9 +86,8 @@ jobs:
             --exclude-files '.*\.png$' \
             --exclude-files '.*\.jpg$' \
             --exclude-files '.*\.tfstate$' > /tmp/detect-secrets-output.json
-          
           # Check if any secrets were found
-          SECRET_COUNT=$(cat /tmp/detect-secrets-output.json | python -c "import sys, json; print(len(json.load(sys.stdin).get('results', {})))")          
+          SECRET_COUNT=$(cat /tmp/detect-secrets-output.json | python -c "import sys, json; print(len(json.load(sys.stdin).get('results', {})))")
           if [ "$SECRET_COUNT" -gt 0 ]; then
             echo "⚠️ Potential secrets detected:"
             cat /tmp/detect-secrets-output.json
@@ -109,11 +108,11 @@ jobs:
           echo "- YAML Lint: ${{ needs.yaml-lint.result }}" >> $GITHUB_STEP_SUMMARY
           echo "- Terraform: ${{ needs.terraform-checks.result }}" >> $GITHUB_STEP_SUMMARY
           echo "- Markdown: ${{ needs.markdown-lint.result }}" >> $GITHUB_STEP_SUMMARY
-          echo "- Secrets: ${{ needs.secret-scan.result }}" >> $GITHUB_STEP_SUMMARY          
+          echo "- Secrets: ${{ needs.secret-scan.result }}" >> $GITHUB_STEP_SUMMARY
           if [[ "${{ needs.yaml-lint.result }}" == "failure" ]] || \
              [[ "${{ needs.terraform-checks.result }}" == "failure" ]] || \
              [[ "${{ needs.markdown-lint.result }}" == "failure" ]]; then
             echo "::error::❌ Pre-checks failed. Please fix the issues above."
             exit 1
-          fi        
+          fi
           echo "::notice::✅ All pre-checks passed successfully!"
