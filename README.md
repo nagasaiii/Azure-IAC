@@ -1,8 +1,5 @@
 # Azure-IAC
 
-<!-- START doctoc -->
-<!-- END doctoc -->
-
 ## Introduction
 
 [![Terraform](https://img.shields.io/badge/Terraform-v1.7+-623CE4?style=flat&logo=terraform&logoColor=white)](https://www.terraform.io/)
