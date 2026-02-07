@@ -1,9 +1,8 @@
 ---
 extends: default
-
 rules:
   line-length:
-    max: 120
+    max: 200
     level: warning
   indentation:
     spaces: 2
@@ -13,4 +12,3 @@ rules:
   document-start: disable
   truthy:
     allowed-values: ['true', 'false', 'on', 'off']
-

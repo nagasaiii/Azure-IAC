@@ -27,30 +27,25 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: ./terraform
-    
+        working-directory: ./terraform  
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3
         with:
           terraform_version: 1.7.0
-
       - name: Terraform Format Check
         id: fmt
         run: |
           echo "Checking Terraform formatting..."
           terraform fmt -check -recursive
         continue-on-error: false
-
       - name: Terraform Init (without backend)
         id: init
         run: |
           echo "Initializing Terraform (backend disabled for validation)..."
           terraform init -backend=false
-
       - name: Terraform Validate
         id: validate
         run: |
@@ -63,7 +58,6 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-
       - name: Lint Markdown files
         uses: DavidAnson/markdownlint-cli2-action@v16
         with:
@@ -78,16 +72,13 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-
       - name: Install detect-secrets
         run: |
           pip install detect-secrets
-
       - name: Run detect-secrets scan
         run: |
           detect-secrets scan --all-files \
@@ -97,8 +88,7 @@ jobs:
             --exclude-files '.*\.tfstate$' > /tmp/detect-secrets-output.json
           
           # Check if any secrets were found
-          SECRET_COUNT=$(cat /tmp/detect-secrets-output.json | python -c "import sys, json; print(len(json.load(sys.stdin).get('results', {})))")
-          
+          SECRET_COUNT=$(cat /tmp/detect-secrets-output.json | python -c "import sys, json; print(len(json.load(sys.stdin).get('results', {})))")          
           if [ "$SECRET_COUNT" -gt 0 ]; then
             echo "⚠️ Potential secrets detected:"
             cat /tmp/detect-secrets-output.json
@@ -119,13 +109,11 @@ jobs:
           echo "- YAML Lint: ${{ needs.yaml-lint.result }}" >> $GITHUB_STEP_SUMMARY
           echo "- Terraform: ${{ needs.terraform-checks.result }}" >> $GITHUB_STEP_SUMMARY
           echo "- Markdown: ${{ needs.markdown-lint.result }}" >> $GITHUB_STEP_SUMMARY
-          echo "- Secrets: ${{ needs.secret-scan.result }}" >> $GITHUB_STEP_SUMMARY
-          
+          echo "- Secrets: ${{ needs.secret-scan.result }}" >> $GITHUB_STEP_SUMMARY          
           if [[ "${{ needs.yaml-lint.result }}" == "failure" ]] || \
              [[ "${{ needs.terraform-checks.result }}" == "failure" ]] || \
              [[ "${{ needs.markdown-lint.result }}" == "failure" ]]; then
             echo "::error::❌ Pre-checks failed. Please fix the issues above."
             exit 1
-          fi
-          
+          fi        
           echo "::notice::✅ All pre-checks passed successfully!"

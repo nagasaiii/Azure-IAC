@@ -1,4 +1,5 @@
 # Azure-IAC
+
 ## Azure Infrastructure Provisioning with Terraform & GitHub Actions
 
 [![Terraform](https://img.shields.io/badge/Terraform-v1.7+-623CE4?style=flat&logo=terraform&logoColor=white)](https://www.terraform.io/)
@@ -33,6 +34,7 @@
 ## 🎯 Overview
 
 This project demonstrates a complete Infrastructure as Code workflow for Azure, featuring:
+
 - **Automated provisioning** of Azure Cache for Redis and Azure Service Bus
 - **GitHub Actions CI/CD** pipeline for infrastructure deployment
 - **Remote state management** using Azure Blob Storage
@@ -60,7 +62,7 @@ This project demonstrates a complete Infrastructure as Code workflow for Azure, 
                            ↓ (Service Principal Auth)
           ┌─────────────────────────────────────┐
           │       Azure Cloud Platform          │
-          │                                     │ 
+          │                                     │
           │    ┌────────────────────────────┐   │
           │    │ Azure Storage Account      │   │
           │    │ (Terraform State Backend)  │   │
@@ -77,13 +79,12 @@ This project demonstrates a complete Infrastructure as Code workflow for Azure, 
           │    └────────────────────────────┘   │
           └─────────────────────────────────────┘
 
-
 ---
 
 ## 🛠️ Technologies
 
 | Category | Technology | Purpose |
-|----------|-----------|---------|
+| ---------- | ----------- | --------- |
 | **IaC** | Terraform 1.7+ | Infrastructure provisioning and management |
 | **Cloud** | Microsoft Azure | Cloud platform provider |
 | **CI/CD** | GitHub Actions | Automated deployment pipeline |
@@ -108,13 +109,15 @@ This project demonstrates a complete Infrastructure as Code workflow for Azure, 
 ## 📦 Prerequisites
 
 ### Required Tools
+
 - **Azure Account** with Pay-As-You-Go subscription (Free Trail Subscription with initial Free Credits will also work)
-- **GitHub Account** with repository access 
-    - public repo is preferred for using shared runners provided by Github or create your own dedicated runners
+- **GitHub Account** with repository access
+  - public repo is preferred for using shared runners provided by Github or create your own dedicated runners
 - **Azure CLI** (`v2.50+`) - [Install Guide](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli)
 - **Terraform** (`v1.7+`) - [Install Guide](https://developer.hashicorp.com/terraform/downloads) (for local testing)
 
 ### Required Knowledge
+
 - Basic understanding of Terraform syntax
 - Familiarity with Azure services
 - YAML configuration experience
@@ -149,6 +152,7 @@ Azure_IAC/
 ## 🚀 Quick Start
 
 ### 1. Fork and Clone Repository
+
 ```bash
 git clone https://github.com/nagasaiii/Azure-IAC.git 
 cd Azure-IAC
@@ -198,6 +202,7 @@ az role assignment create \
   --assignee APP_ID \
   --scope "/subscriptions/SUBSCRIPTION_ID/resourceGroups/terraform-state-rg"
 ```
+
 ### 4. Configure GitHub Secrets
 
 Go to repository Settings → Secrets and variables → Actions and add:
@@ -246,18 +251,20 @@ Click Run workflow → Run workflow
 Confirm resources are deleted in Azure Portal
 
 ## 💰 Cost Analysis
-| Resource	| Tier	 | Hourly Cost	| Test Duration	| Total Cost |
-|----------|-----------|---------|-----------|----------|
-| **Azure Cache for Redis**	| Basic C0 (250MB)	| $0.020/hour	| ~15 minutes	| $0.005 |
-| **Azure Service Bus**	| Basic	| $0.05/million ops	| ~10 operations	| $0.001 |
-| **Storage Account**	| Standard LRS	| $0.02/GB/month	| 1GB state file	| $0.001 |
 
-**Total Estimated**	-	-	Single Run	< $0.01
+| Resource | Tier | Hourly Cost | Test Duration | Total Cost |
+| ---------- | ----------- | --------- | ----------- | ---------- |
+| **Azure Cache for Redis** | Basic C0 (250MB) | $0.020/hour | ~15 minutes | $0.005 |
+| **Azure Service Bus** | Basic | $0.05/million ops | ~10 operations | $0.001 |
+| **Storage Account** | Standard LRS | $0.02/GB/month | 1GB state file | $0.001 |
+
+**Total Estimated** - - Single Run < $0.01
 Monthly Budget Recommendation: $10 (allows 1000+ test runs)
 
 For detailed cost optimization strategies, see `docs/cost-analysis.md`
 
 ## 🔄 Workflows
+
 ### Terraform Deploy Workflow
 
 **Trigger**: Manual (workflow_dispatch)
@@ -289,6 +296,7 @@ For detailed cost optimization strategies, see `docs/cost-analysis.md`
 **Duration**: ~3-5 minutes
 
 ## 🔒 Security
+
 **Authentication**
 
 Service Principal authentication with least-privilege access (Contributor role scoped to subscription)
@@ -320,6 +328,7 @@ No hardcoded credentials in source code
  Add Azure Policy compliance scanning
 
 ## 📸 Screenshots
+
 Successful Deployment
 
 GitHub Actions Success
@@ -336,6 +345,7 @@ Azure Cost Management
 Actual deployment costs
 
 ## 📚 Lessons Learned
+
 ### Technical Insights
 
 **Redis Provisioning Time** - Azure Cache for Redis takes 15-20 minutes to fully provision; plan workflow timeouts accordingly
@@ -357,6 +367,7 @@ Actual deployment costs
 **Iterative Testing** - Test locally with terraform plan before committing to workflows
 
 ## 🚧 Future Enhancements
+
  Multi-Environment Support - Add dev/staging/prod workspace management
 
  Terraform Modules - Refactor resources into reusable modules
@@ -374,14 +385,17 @@ Actual deployment costs
  Terraform Cloud - Compare Azure backend vs. Terraform Cloud for state management
 
 ## 📄 License
+
 This project is licensed under the MIT License - see the LICENSE file for details.
 
 ## 👤 Author
+
 Naga Sai Dandamudi
 
 GitHub: [nagasaiii](https://github.com/nagasaiii/nagasaiii/)
 
 ## 🙏 Acknowledgments
+
 [HashiCorp Terraform Documentation](https://developer.hashicorp.com/terraform/docs)
 
 [Azure Terraform Provider](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs)
