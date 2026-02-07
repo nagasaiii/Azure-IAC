@@ -1,6 +1,9 @@
 # Azure-IAC
 
-## Azure Infrastructure Provisioning with Terraform & GitHub Actions
+<!-- START doctoc -->
+<!-- END doctoc -->
+
+## Introduction
 
 [![Terraform](https://img.shields.io/badge/Terraform-v1.7+-623CE4?style=flat&logo=terraform&logoColor=white)](https://www.terraform.io/)
 [![Azure](https://img.shields.io/badge/Azure-Cloud-0078D4?style=flat&logo=microsoftazure&logoColor=white)](https://azure.microsoft.com/)
@@ -8,28 +11,6 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 > A production-grade Infrastructure as Code (IaC) project demonstrating automated Azure resource provisioning using Terraform with GitHub Actions CI/CD pipeline. Built with cost optimization and DevOps best practices in mind.
-
----
-
-## 📋 Table of Contents
-
-- [Overview](#overview)
-- [Architecture](#architecture)
-- [Technologies](#technologies)
-- [Features](#features)
-- [Prerequisites](#prerequisites)
-- [Project Structure](#project-structure)
-- [Quick Start](#quick-start)
-- [Cost Analysis](#cost-analysis)
-- [Workflows](#workflows)
-- [Security](#security)
-- [Screenshots](#screenshots)
-- [Lessons Learned](#lessons-learned)
-- [Future Enhancements](#future-enhancements)
-- [Contributing](#contributing)
-- [License](#license)
-- [Author](#author)
-- [Acknowledgments](#acknowledgments)
 
 ---
 
