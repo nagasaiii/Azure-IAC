@@ -313,22 +313,45 @@ No hardcoded credentials in source code
 
  Add Azure Policy compliance scanning
 
+## Deployment Results
+
+### Successful Deployment
+
+**Date**: February 8, 2026  
+**Duration**: 19 minutes  
+**Cost**: < $0.01 USD
+
+**Resources Deployed**:
+
+- ✅ Azure Resource Group (rg-terraform-demo)
+- ✅ Azure Cache for Redis (Basic C0 - 250MB)
+- ✅ Azure Service Bus Namespace (Basic tier)
+- ✅ Service Bus Queue (demo-queue)
+
+**Validation**:
+
+- All resources provisioned successfully via GitHub Actions
+- Remote state managed in Azure Blob Storage
+- Service Principal authentication working correctly
+- Infrastructure destroyed after validation
+
+See [Cost Analysis](docs/cost-analysis.md) for detailed cost breakdown.
+
 ## 📸 Screenshots
 
-Successful Deployment
+[Successful Deployment](screenshots/github-actions-deploy-success.png)
 
-GitHub Actions Success
-Terraform Deploy workflow execution
+[Terraform Deploy workflow execution](screenshots/github-terraform-destroy-workflow.png)
 
-Azure Resources
+[Azure resoruce group deployed](screenshots/azure-resource-group-overview.png)
 
-Azure Portal Resources
-Provisioned resources in Azure Portal
+[Azure Service Bus Namespace Deployment](screenshots/azure-service-bus-ns-details.png)
 
-Cost Analysis
+[Azure Service Bus Queue Deployment](screenshots/azure-service-bus-queue-details.png)
 
-Azure Cost Management
-Actual deployment costs
+[Azure Redis for Cache Deployment](screenshots/azure-redis-cache-details.png)
+
+[Cost Analysis](screenshots/cost-analysis.png)
 
 ## 📚 Lessons Learned
 
