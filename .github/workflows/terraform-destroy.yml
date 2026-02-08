@@ -1,0 +1,79 @@
+name: Terraform Destroy
+
+on:
+  workflow_dispatch:  # Manual trigger only
+    inputs:
+      confirm_destroy:
+        description: 'Type "destroy" to confirm resource deletion'
+        required: true
+        type: string
+
+env:
+  ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
+  ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
+  ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
+  ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
+  TF_VERSION: '1.9.0'
+
+jobs:
+  terraform-destroy:
+    name: Destroy Infrastructure
+    runs-on: ubuntu-latest
+    environment: production
+
+    defaults:
+      run:
+        working-directory: ./terraform
+
+    steps:
+      - name: Verify Confirmation
+        run: |
+          if [[ "${{ github.event.inputs.confirm_destroy }}" != "destroy" ]]; then
+            echo "::error::Confirmation failed. You must type 'destroy' to proceed."
+            exit 1
+          fi
+          echo "✅ Confirmation verified. Proceeding with destroy..."
+
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: ${{ env.TF_VERSION }}
+
+      - name: Terraform Init
+        id: init
+        run: |
+          echo "Initializing Terraform with Azure backend..."
+          terraform init
+
+      - name: Terraform Plan Destroy
+        id: plan-destroy
+        run: |
+          echo "Generating destruction plan..."
+          terraform plan -destroy -out=tfplan-destroy -no-color
+
+      - name: Terraform Destroy
+        id: destroy
+        run: |
+          echo "Destroying infrastructure..."
+          terraform destroy -auto-approve
+
+      - name: Verify Destruction
+        if: success()
+        run: |
+          echo "::notice::✅ Infrastructure destroyed successfully!"
+          echo "### Destruction Complete" >> $GITHUB_STEP_SUMMARY
+          echo "✅ All managed resources have been removed from Azure." >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**Verify in Azure Portal:**" >> $GITHUB_STEP_SUMMARY
+          echo "- Resource group 'rg-terraform-demo' should be empty or deleted" >> $GITHUB_STEP_SUMMARY
+          echo "- Check Cost Management to confirm no ongoing charges" >> $GITHUB_STEP_SUMMARY
+
+      - name: Destruction Failed
+        if: failure()
+        run: |
+          echo "::error::❌ Infrastructure destruction failed!"
+          echo "### Destruction Failed" >> $GITHUB_STEP_SUMMARY
+          echo "❌ Some resources may still exist. Check Azure Portal manually." >> $GITHUB_STEP_SUMMARY

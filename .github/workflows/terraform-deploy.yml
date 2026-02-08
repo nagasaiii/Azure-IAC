@@ -1,0 +1,92 @@
+name: Terraform Deploy
+
+on:
+  workflow_dispatch:  # Manual trigger only
+
+env:
+  ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
+  ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
+  ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
+  ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
+  TF_VERSION: '1.9.0'
+
+jobs:
+  terraform-deploy:
+    name: Deploy Infrastructure
+    runs-on: ubuntu-latest
+    environment: production
+    defaults:
+      run:
+        working-directory: ./terraform
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: ${{ env.TF_VERSION }}
+
+      - name: Terraform Format Check
+        id: fmt
+        run: terraform fmt -check -recursive
+        continue-on-error: true
+
+      - name: Terraform Init
+        id: init
+        run: |
+          echo "Initializing Terraform with Azure backend..."
+          terraform init
+
+      - name: Terraform Validate
+        id: validate
+        run: |
+          echo "Validating Terraform configuration..."
+          terraform validate -no-color
+
+      - name: Terraform Plan
+        id: plan
+        run: |
+          echo "Generating Terraform execution plan..."
+          terraform plan -out=tfplan -no-color
+        continue-on-error: false
+
+      - name: Terraform Apply
+        id: apply
+        run: |
+          echo "Applying Terraform changes..."
+          terraform apply -auto-approve tfplan
+
+      - name: Terraform Output
+        id: output
+        run: |
+          echo "### Terraform Outputs" >> $GITHUB_STEP_SUMMARY
+          terraform output >> $GITHUB_STEP_SUMMARY
+
+      - name: Upload Terraform Plan
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: terraform-plan
+          path: terraform/tfplan
+          retention-days: 5
+
+      - name: Deployment Success
+        if: success()
+        run: |
+          echo "::notice::✅ Infrastructure deployed successfully!"
+          echo "### Deployment Complete" >> $GITHUB_STEP_SUMMARY
+          echo "✅ All resources have been provisioned in Azure." >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**Next Steps:**" >> $GITHUB_STEP_SUMMARY
+          echo "1. Verify resources in Azure Portal" >> $GITHUB_STEP_SUMMARY
+          echo "2. Take screenshots for documentation" >> $GITHUB_STEP_SUMMARY
+          echo "3. Run the Terraform Destroy workflow when done" >> $GITHUB_STEP_SUMMARY
+
+      - name: Deployment Failed
+        if: failure()
+        run: |
+          echo "::error::❌ Infrastructure deployment failed!"
+          echo "### Deployment Failed" >> $GITHUB_STEP_SUMMARY
+          echo "❌ Check the logs above for error details." >> $GITHUB_STEP_SUMMARY

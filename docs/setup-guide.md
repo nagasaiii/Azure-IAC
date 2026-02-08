@@ -419,7 +419,7 @@ terraform {
     }
     random = {
       source  = "hashicorp/random"
-      version = "~> 3.5"
+      version = "~> 4.0"
     }
   }
 }
@@ -431,11 +431,7 @@ provider "azurerm" {
     }
   }
 
-  # Authentication via environment variables
-  subscription_id = var.subscription_id
-  tenant_id       = var.tenant_id
-  client_id       = var.client_id
-  client_secret   = var.client_secret
+  resource_provider_registrations = "none"
 }
 ```
 
@@ -444,30 +440,6 @@ provider "azurerm" {
 Create `terraform/variables.tf`:
 
 ```hcl
-variable "subscription_id" {
-  description = "Azure Subscription ID"
-  type        = string
-  sensitive   = true
-}
-
-variable "tenant_id" {
-  description = "Azure Tenant ID"
-  type        = string
-  sensitive   = true
-}
-
-variable "client_id" {
-  description = "Service Principal Client ID"
-  type        = string
-  sensitive   = true
-}
-
-variable "client_secret" {
-  description = "Service Principal Client Secret"
-  type        = string
-  sensitive   = true
-}
-
 variable "location" {
   description = "Azure region for resources"
   type        = string
