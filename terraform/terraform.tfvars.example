@@ -1,0 +1,11 @@
+# Azure Credentials (DO NOT commit actual values!)
+# These are provided via GitHub Secrets as environment variables
+subscription_id = "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
+tenant_id       = "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
+client_id       = "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
+client_secret   = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+
+# Resource Configuration
+location            = "eastus"
+resource_group_name = "rg-terraform-demo"
+environment         = "Demo"
