@@ -23,10 +23,11 @@ jobs:
 
     defaults:
       run:
-        working-directory: terraform
+        working-directory: ./terraform
 
     steps:
       - name: Verify Confirmation
+        working-directory: .  # Override: run in repo root
         run: |
           if [[ "${{ github.event.inputs.confirm_destroy }}" != "destroy" ]]; then
             echo "::error::Confirmation failed. You must type 'destroy' to proceed."
