@@ -700,7 +700,7 @@ git push origin feature/add-terraform-resources
 
 1. Click on the running workflow to see live logs
 2. Expand each job to see detailed output
-3. **Expected duration**: 8-12 minutes (Redis takes 5-7 minutes)
+3. **Expected duration**: 8-20 minutes (Redis takes 8-15 minutes)
 
 **Step 4: Verify in Azure Portal**
 
